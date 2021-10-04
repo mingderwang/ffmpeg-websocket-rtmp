@@ -7,5 +7,15 @@
     "express": "^4.17.1",
     "express-ws": "^5.0.2",
     "websocket-stream": "^5.5.2"
+  },
+  "scripts": {
+    "serv": "node server.js",
+    "test": "beefy test-client.js"
+  },
+  "devDependencies": {
+    "beefy": "^2.1.8",
+    "browserify": "^17.0.0",
+    "safe-buffer": "^5.2.1",
+    "tape": "^5.3.1"
   }
 }
