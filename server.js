@@ -1,3 +1,4 @@
+const child_process = require('child_process');
 var express = require('express')
 var app = express()
 var expressWs = require('express-ws')(app, null, {
@@ -40,4 +41,25 @@ app.ws('/bigdata.json', function (ws, req) {
   }
 })
 
+console.log('to start ffmpeg streaming')
+const ffmpeg = child_process.spawn('ffmpeg', [
+    '-f', 'avfoundation', '-framerate', '30', '-pixel_format', 'uyvy422', 
+    '-i', '0:1',
+    '-c:v', 'libx264',
+    '-tune','zerolatency','-bufsize','5000',
+    '-r', '15', 
+    '-g','30',
+    '-keyint_min','30',
+    '-x264opts','keyint=30', 
+    '-crf','25',
+    '-pix_fmt','yuv420p',
+    '-profile:v','baseline',
+    '-level','3',
+    '-c:a','aac',
+    '-ar','22050',
+    '-b:a','22k',
+    '-f', 'flv',
+    'rtmp://rtmp.livepeer.com/live/8128-9mc0-narn-bgwj'
+  ]);
+  
 app.listen(3000)
