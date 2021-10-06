@@ -10,7 +10,7 @@
     "websocket-stream": "^5.5.2"
   },
   "scripts": {
-    "serv": "node server.js",
+    "start": "node server.js",
     "test": "beefy test-client.js"
   },
   "devDependencies": {
