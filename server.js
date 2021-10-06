@@ -6,6 +6,7 @@ const expressWs = require('express-ws')(app, null, {
 })
 const websocketStream = require('websocket-stream')
 const fs = require('fs')
+var streamKey = '0d19-wi38-udkl-jwam' //default, will update by /streamKey with websocket
 
 app.use(function (req, res, next) {
   req.testing = 'testing'
@@ -17,13 +18,21 @@ app.get('/', function (req, res, next) {
   res.end()
 })
 
+app.ws('/streamKey', function(ws, req) {
+  ws.on('message', function(msg) {
+    console.log('streamKey is updated to ', msg)
+    streamKey = msg
+    ws.send(msg);
+  });
+});
+
 app.ws('/', function (ws, req) {
   ws.on('message', function (msg) {
     console.log(msg)
     ffmpeg.stdin.write(msg)
   })
 })
-
+/* testing only
 app.ws('/bigdata.json', function (ws, req) {
   // convert ws instance to stream
   const stream = websocketStream(ws, {
@@ -38,6 +47,7 @@ app.ws('/bigdata.json', function (ws, req) {
     console.log('error', e)
   }
 })
+*/
 
 const ffmpeg = child_process.spawn(
   'ffmpeg',
@@ -54,7 +64,7 @@ const ffmpeg = child_process.spawn(
     '22k',
     '-f',
     'flv',
-    'rtmp://rtmp.livepeer.com/live/0d19-wi38-udkl-jwam',
+    'rtmp://rtmp.livepeer.com/live/' + streamKey,
   ],
   /*[
     '-f', 'avfoundation', '-framerate', '30', '-pixel_format', 'uyvy422', 
