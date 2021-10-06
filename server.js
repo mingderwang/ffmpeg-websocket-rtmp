@@ -54,7 +54,7 @@ const ffmpeg = child_process.spawn(
     '22k',
     '-f',
     'flv',
-    'rtmp://rtmp.livepeer.com/live/8128-9mc0-narn-bgwj',
+    'rtmp://rtmp.livepeer.com/live/0d19-wi38-udkl-jwam',
   ],
   /*[
     '-f', 'avfoundation', '-framerate', '30', '-pixel_format', 'uyvy422', 
