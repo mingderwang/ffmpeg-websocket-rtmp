@@ -27,6 +27,7 @@ app.ws('/streamKey', function(ws, req) {
     ffmpeg = child_process.spawn(
       'ffmpeg',
       [
+        '-v', '0',
         '-i',
         '-',
         '-c:v',
@@ -84,7 +85,7 @@ app.ws('/streamKey', function(ws, req) {
 
 app.ws('/', function (ws, req) {
   ws.on('message', function (msg) {
-    console.log(msg)
+    //console.log(msg)
     ffmpeg.stdin.write(msg)
   })
 })
