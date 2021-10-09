@@ -23,7 +23,7 @@ app.ws('/streamKey', function(ws, req) {
   ws.on('message', function(msg) {
     console.log('streamKey is updated to ', msg)
     streamKey = msg
-    ws.send(msg);// no use
+    ws.send(msg); // feedback for checking and display
     ffmpeg = child_process.spawn(
       'ffmpeg',
       [
